@@ -8,7 +8,7 @@ using namespace std;
 
 class HashMap {
 private:
-    vector<list<string>> buckets; //vector of lists used for sperate chaining
+    vector<list<string>> buckets; //vector of lists used for seprate chaining
     int bucketCount; //total num of buckets in hash table
     int elementCount; //total num of elements currently stored
 
