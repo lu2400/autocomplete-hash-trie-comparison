@@ -6,52 +6,52 @@
 #include <chrono>
 #include <iostream>
 #include <iomanip>
+using namespace std;
 
-BenchmarkResult benchmarkHashMap(const std::vector<std::string>& words) {
+BenchmarkResult benchmarkHashMap(const vector<string>& words) {
     BenchmarkResult result;
     HashMap map;
 
-    // Time insertion
-    auto start = std::chrono::high_resolution_clock::now();
-    for (const std::string& word : words) {
+    // time insertion
+    auto start = chrono::high_resolution_clock::now();
+    for (const string& word : words) {
         map.insert(word);
     }
-    auto end = std::chrono::high_resolution_clock::now();
-    result.insertTime = std::chrono::duration<double>(end - start).count();
+    auto end = chrono::high_resolution_clock::now();
+    result.insertTime = chrono::duration<double>(end - start).count();
 
-    // Time search (search every word that was inserted)
-    start = std::chrono::high_resolution_clock::now();
-    for (const std::string& word : words) {
+    // search every word that was inserted
+    start = chrono::high_resolution_clock::now();
+    for (const string& word : words) {
         map.search(word);
     }
-    end = std::chrono::high_resolution_clock::now();
-    result.searchTime = std::chrono::duration<double>(end - start).count();
+    end = chrono::high_resolution_clock::now();
 
-    result.prefixTime = -1.0; // HashMap does not support prefix search
-
+    result.searchTime = chrono::duration<double>(end - start).count();
+    result.prefixTime = -1.0; // HashMap doesn't support prefix search
     return result;
 }
 
 void printResults(const BenchmarkResult& hashResult, const BenchmarkResult& trieResult, int wordCount) {
-    std::cout << std::fixed << std::setprecision(6);
-    std::cout << "\n--- Performance Comparison (" << wordCount << " words) ---\n";
-    std::cout << std::left
-              << std::setw(18) << "Operation"
-              << std::setw(18) << "Hash Map (s)"
-              << std::setw(18) << "Trie (s)" << "\n";
-    std::cout << std::string(54, '-') << "\n";
+    cout << fixed << setprecision(6);
+    cout << "\n--- Performance Comparison (" << wordCount << " words) ---\n";
+    cout << left
+              << setw(18) << "Operation"
+              << setw(18) << "Hash Map (s)"
+              << setw(18) << "Trie (s)" << "\n";
+    cout << string(54, '-') << "\n";
 
-    std::cout << std::setw(18) << "Insert"
-              << std::setw(18) << hashResult.insertTime
-              << std::setw(18) << trieResult.insertTime << "\n";
+    cout << setw(18) << "Insert"
+              << setw(18) << hashResult.insertTime
+              << setw(18) << trieResult.insertTime << "\n";
 
-    std::cout << std::setw(18) << "Search"
-              << std::setw(18) << hashResult.searchTime
-              << std::setw(18) << trieResult.searchTime << "\n";
+    cout << setw(18) << "Search"
+              << setw(18) << hashResult.searchTime
+              << setw(18) << trieResult.searchTime << "\n";
 
-    std::cout << std::setw(18) << "Prefix Search"
-              << std::setw(18) << "N/A"
-              << std::setw(18) << trieResult.prefixTime << "\n";
+    cout << setw(18) << "Prefix Search"
+              << setw(18) << "N/A"
+              << setw(18) << trieResult.prefixTime << "\n";
 
-    std::cout << std::string(54, '-') << "\n";
+    cout << string(54, '-') << "\n";
 }

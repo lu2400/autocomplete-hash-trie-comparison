@@ -5,18 +5,19 @@
 #include "DatasetLoader.h"
 #include <fstream>
 #include <iostream>
+using namespace std;
 
-std::vector<std::string> loadDataset(const std::string& filepath) {
-    std::vector<std::string> words;
-    std::ifstream file(filepath);
+vector<string> loadDataset(const string& filepath) {
+    vector<string> words;
+    ifstream file(filepath);
 
     if (!file.is_open()) {
-        std::cerr << "Error: Could not open dataset file: " << filepath << std::endl;
+        cerr << "Error: Could not open dataset file: " << filepath << endl;
         return words;
     }
 
-    std::string word;
-    while (std::getline(file, word)) {
+    string word;
+    while (getline(file, word)) {
         if (!word.empty()) {
             words.push_back(word);
         }

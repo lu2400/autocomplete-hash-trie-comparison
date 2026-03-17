@@ -16,8 +16,7 @@ struct BenchmarkResult {
 };
 
 BenchmarkResult benchmarkHashMap(const std::vector<std::string>& words);
-// benchmarkTrie will be added once Trie is implemented
-
+// benchmarkTrie will be added once Trie is implemented 
 void printResults(const BenchmarkResult& hashResult, const BenchmarkResult& trieResult, int wordCount);
 
 #endif //AUTOCOMPLETE_HASH_TRIE_COMPARISON_BENCHMARK_H
