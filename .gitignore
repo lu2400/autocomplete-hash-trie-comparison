@@ -1,0 +1,16 @@
+# Dataset (download from https://github.com/dwyl/english-words)
+data/
+
+# Build directories
+build/
+cmake-build-debug/
+cmake-build-release/
+
+# IDE files
+.vscode/
+.idea/
+
+# Compiled output
+*.exe
+*.o
+*.obj
