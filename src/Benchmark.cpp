@@ -3,6 +3,7 @@
 //
 
 #include "Benchmark.h"
+#include "Trie.h"
 #include <chrono>
 #include <iostream>
 #include <iomanip>
@@ -29,6 +30,37 @@ BenchmarkResult benchmarkHashMap(const vector<string>& words) {
 
     result.searchTime = chrono::duration<double>(end - start).count();
     result.prefixTime = -1.0; // HashMap doesn't support prefix search
+    return result;
+}
+
+BenchmarkResult benchmarkTrie(const vector<string>& words) {
+    Trie trie;
+
+    auto startInsert = chrono::high_resolution_clock::now();
+    for (const string& word : words) {
+        trie.insert(word);
+    }
+    auto endInsert = chrono::high_resolution_clock::now();
+
+    auto startSearch = chrono::high_resolution_clock::now();
+    for (const string& word : words) {
+        trie.search(word);
+    }
+    auto endSearch = chrono::high_resolution_clock::now();
+
+    auto startPrefix = chrono::high_resolution_clock::now();
+    for (int i = 0; i < words.size() && i < 1000; i++) {
+        if (words[i].length() >= 3) {
+            string prefix = words[i].substr(0, 3);
+            trie.prefixSearch(prefix);
+        }
+    }
+    auto endPrefix = chrono::high_resolution_clock::now();
+
+    BenchmarkResult result;
+    result.insertTime = chrono::duration<double>(endInsert - startInsert).count();
+    result.searchTime = chrono::duration<double>(endSearch - startSearch).count();
+    result.prefixTime = chrono::duration<double>(endPrefix - startPrefix).count();
     return result;
 }
 

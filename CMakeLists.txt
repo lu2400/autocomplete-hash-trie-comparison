@@ -15,4 +15,5 @@ add_executable(FastLookup
         include/HashMap.h
         include/DatasetLoader.h
         include/Benchmark.h
+        include/Trie.h
 )

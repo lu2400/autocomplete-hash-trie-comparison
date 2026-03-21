@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include "HashMap.h"
+#include "Trie.h"
+#include "Benchmark.h"
 #include "DatasetLoader.h"
 using namespace std;
 
@@ -21,6 +23,7 @@ void printMenu() {
 
 int main() {
     HashMap hashMap;
+    Trie trie;
     vector<string> words;
     bool datasetLoaded = false;
     bool wordsInserted = false;
@@ -28,7 +31,12 @@ int main() {
     int choice;
     do {
         printMenu();
-        cin >> choice;
+        if (!(cin >> choice)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cerr << "Invalid choice. Please enter 1-6.\n";
+            continue;
+        }
         cin.ignore();
 
         switch (choice) {
@@ -37,6 +45,7 @@ int main() {
                 words = loadDataset("../data/words_alpha.txt");
                 if (!words.empty()) {
                     cout << "Loaded " << words.size() << " words.\n";
+
                     datasetLoaded = true;
                     wordsInserted = false;
                 } else {
@@ -49,13 +58,18 @@ int main() {
                     cout << "Please load the dataset first (option 1).\n";
                     break;
                 }
+                if (wordsInserted) {
+                    cout << "Words have already been inserted into the structures. \n";
+                    break;
+                }
                 cout << "Inserting " << words.size() << " words into structures...\n";
-                hashMap = HashMap();
                 for (const string& word : words) {
                     hashMap.insert(word);
+                    trie.insert(word);
                 }
                 wordsInserted = true;
                 cout << "Done.\n";
+
                 break;
             }
             case 3: {
@@ -67,12 +81,43 @@ int main() {
                 cout << "Enter word to search: ";
                 getline(cin, query);
                 cout << "Hash Map Result: " << (hashMap.search(query) ? "Found" : "Not Found") << "\n";
+                cout << "Trie Result: " << (trie.search(query) ? "Found" : "Not Found") << "\n";
                 break;
             }
-            case 4:
-            case 5:
-                cout << "Coming soon.\n";
+            case 4: {
+                if (!wordsInserted) {
+                    cout << "Please load and insert words first (options 1 & 2).\n";
+                    break;
+                }
+                string prefix;
+                cout << "Enter prefix: ";
+                getline(cin, prefix);
+                vector<string> results = trie.prefixSearch(prefix);
+                if (results.empty()) {
+                    cout << "No suggestions found.\n";
+                } else {
+                    cout << "Suggestions:\n";
+                    int limit = 10;
+                    for (int i = 0; i < results.size() && i < limit; i++) {
+                        cout << results[i] << "\n";
+                    }
+                    if (results.size() > limit) {
+                        cout << "...and " << results.size() - limit << " more results.\n";
+                    }
+                }
                 break;
+            }
+            case 5: {
+                if (!datasetLoaded) {
+                    cout << "Please load the dataset first (option 1).\n";
+                    break;
+                }
+                cout << "Running benchmarks...\n";
+                BenchmarkResult hashResult = benchmarkHashMap(words);
+                BenchmarkResult trieResult = benchmarkTrie(words);
+                printResults(hashResult, trieResult, static_cast<int>(words.size()));
+                break;
+            }
             case 6:
                 cout << "Goodbye!\n";
                 break;

@@ -18,8 +18,17 @@ vector<string> loadDataset(const string& filepath) {
 
     string word;
     while (getline(file, word)) {
-        if (!word.empty()) {
-            words.push_back(word);
+        if (!word.empty() && word.back() == '/r') {
+            words.pop_back();
+        }
+        string cleanedWord;
+        for (char c : word) {
+            if (isalpha(c)) {
+                cleanedWord += c;
+            }
+        }
+        if (!cleanedWord.empty()) {
+            words.push_back(cleanedWord);
         }
     }
 

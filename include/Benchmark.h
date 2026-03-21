@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include "HashMap.h"
+#include "Trie.h"
 
 struct BenchmarkResult {
     double insertTime;  // seconds to insert all words
@@ -16,7 +17,8 @@ struct BenchmarkResult {
 };
 
 BenchmarkResult benchmarkHashMap(const std::vector<std::string>& words);
-// benchmarkTrie will be added once Trie is implemented 
+BenchmarkResult benchmarkTrie(const std::vector<std::string>& words);
+
 void printResults(const BenchmarkResult& hashResult, const BenchmarkResult& trieResult, int wordCount);
 
 #endif //AUTOCOMPLETE_HASH_TRIE_COMPARISON_BENCHMARK_H
