@@ -1,10 +1,11 @@
 #include <iostream>
+#include <limits>
 #include <string>
 #include <vector>
-#include "HashMap.h"
-#include "Trie.h"
-#include "Benchmark.h"
-#include "DatasetLoader.h"
+#include "../include/HashMap.h"
+#include "../include/Trie.h"
+#include "../include/Benchmark.h"
+#include "../include/DatasetLoader.h"
 using namespace std;
 
 void printMenu() {
@@ -33,7 +34,7 @@ int main() {
         printMenu();
         if (!(cin >> choice)) {
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             cerr << "Invalid choice. Please enter 1-6.\n";
             continue;
         }
@@ -42,7 +43,7 @@ int main() {
         switch (choice) {
             case 1: {
                 cout << "Loading dataset...\n";
-                words = loadDataset("../data/words_alpha.txt");
+                words = loadDataset("data/words.txt");
                 if (!words.empty()) {
                     cout << "Loaded " << words.size() << " words.\n";
 

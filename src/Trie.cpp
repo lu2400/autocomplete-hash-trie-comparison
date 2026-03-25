@@ -1,4 +1,4 @@
-#include "Trie.h"
+#include "../include/Trie.h"
 #include <cctype>
 
 TrieNode::TrieNode() {
@@ -98,4 +98,4 @@ vector<string> Trie::prefixSearch(const string& prefix) const {
     }
     collectWords(current, normalized, result); //collects all complete words below prefix
     return result; //returns all matching autocomplete suggestions
-}
+    }

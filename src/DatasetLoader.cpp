@@ -18,7 +18,7 @@ vector<string> loadDataset(const string& filepath) {
 
     string word;
     while (getline(file, word)) {
-        if (!word.empty() && word.back() == '/r') {
+        if (!word.empty() && word.back() == '\r') {
             words.pop_back();
         }
         string cleanedWord;

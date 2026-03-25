@@ -13,7 +13,8 @@ private:
     int elementCount; //total num of elements currently stored
 
     unsigned int hashFunction(const string &word); //funct to calculate hash index for word
-
+    string normalizeWord(const string &word) const; //helper function to convert word to lowercase for case insensitivity   
+    
     public:
     explicit HashMap(int size = 100003); //constructor that initializes hash map with given bucket size
     void insert(const string &word); //insert word
