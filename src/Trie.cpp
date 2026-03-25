@@ -1,4 +1,5 @@
 #include "Trie.h"
+#include <cctype>
 
 TrieNode::TrieNode() {
     isEndOfWord = false; //set end of word flag false
@@ -15,6 +16,14 @@ Trie::~Trie() {
     clear(root); //destructor
 }
 
+string Trie::normalizeWord(const string& word) const {
+    string result = word;
+    for (char& c : result) {
+        c = tolower(c);
+    }
+    return result;
+}
+
 void Trie::clear(TrieNode *node) { //deletes all nodes in trie
     if (node == nullptr) {
         return;
@@ -26,8 +35,9 @@ void Trie::clear(TrieNode *node) { //deletes all nodes in trie
 }
 
 void Trie::insert(const string& word) {
+    string normalized = normalizeWord(word); //convert word to lowercase
     TrieNode *current = root; //start traversal at root
-    for (char c : word) {//loops through each char of input
+    for (char c : normalized) {//loops through each char of input
         if (c < 'a' || c > 'z') {
             return;
         }
@@ -41,8 +51,9 @@ void Trie::insert(const string& word) {
 }
 
 bool Trie::search(const string& word) const{
+    string normalized = normalizeWord(word); //convert word to lowercase
     TrieNode *current = root;
-    for (char c : word) {
+    for (char c : normalized) {
         if (c < 'a' || c > 'z') {
             return false;
         }
@@ -72,9 +83,10 @@ void Trie::collectWords(TrieNode *node, string currentWord, vector<string> &resu
 
 vector<string> Trie::prefixSearch(const string& prefix) const {
     vector<string> result; //stores autocomplete results
+    string normalized = normalizeWord(prefix); //convert prefix to lowercase
     TrieNode *current = root; //start at root
 
-    for (char c : prefix) {
+    for (char c : normalized) {
         if (c < 'a' || c > 'z') {
             return result;
         }
@@ -84,8 +96,6 @@ vector<string> Trie::prefixSearch(const string& prefix) const {
         }
         current = current->children[index]; //moves to next node
     }
-    collectWords(current, prefix, result); //collects all complete words below prefix
+    collectWords(current, normalized, result); //collects all complete words below prefix
     return result; //returns all matching autocomplete suggestions
 }
-
-
