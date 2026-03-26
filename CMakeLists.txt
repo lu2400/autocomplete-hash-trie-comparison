@@ -11,9 +11,10 @@ add_executable(FastLookup
         src/Trie.cpp
         src/DatasetLoader.cpp
         src/Benchmark.cpp
-        src/HelperFuncts.cpp
+        src/Testing.cpp
         include/HashMap.h
         include/DatasetLoader.h
         include/Benchmark.h
         include/Trie.h
+        include/Testing.h
 )

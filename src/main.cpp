@@ -6,6 +6,7 @@
 #include "../include/Trie.h"
 #include "../include/Benchmark.h"
 #include "../include/DatasetLoader.h"
+#include "../include/Testing.h"
 using namespace std;
 
 void printMenu() {
@@ -17,7 +18,8 @@ void printMenu() {
     cout << "3. Search for a word\n";
     cout << "4. Search by prefix\n";
     cout << "5. Compare performance\n";
-    cout << "6. Exit\n";
+    cout << "6. Run correctness tests\n";
+    cout << "7. Exit\n";
     cout << "--------------------------\n";
     cout << "Enter choice: ";
 }
@@ -35,7 +37,7 @@ int main() {
         if (!(cin >> choice)) {
             cin.clear();
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            cerr << "Invalid choice. Please enter 1-6.\n";
+            cerr << "Invalid choice. Please enter 1-7.\n";
             continue;
         }
         cin.ignore();
@@ -120,12 +122,15 @@ int main() {
                 break;
             }
             case 6:
+                runAllTests();
+                break;
+            case 7:
                 cout << "Goodbye!\n";
                 break;
             default:
-                cout << "Invalid choice. Please enter 1-6.\n";
+                cout << "Invalid choice. Please enter 1-7.\n";
         }
-    } while (choice != 6);
+    } while (choice != 7);
 
     return 0;
 }

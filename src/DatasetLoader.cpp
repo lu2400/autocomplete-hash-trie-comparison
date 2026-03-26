@@ -3,6 +3,7 @@
 //
 
 #include "DatasetLoader.h"
+#include <cctype>
 #include <fstream>
 #include <iostream>
 using namespace std;
