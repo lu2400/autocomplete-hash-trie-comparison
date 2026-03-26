@@ -76,6 +76,8 @@ After running the program, you will see a menu:
  
 7. Exit
 
+Then you will enter the number corresponding to what action you would like to complete and any words or prefix you will like to search up.
+
 ## Dataset
 The dataset file is located in:
 
