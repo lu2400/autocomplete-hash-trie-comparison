@@ -98,7 +98,7 @@ int main() {
                     cout << "No suggestions found.\n";
                 } else {
                     cout << "Suggestions:\n";
-                    int limit = 10;
+                    int limit = 6;
                     for (int i = 0; i < results.size() && i < limit; i++) {
                         cout << results[i] << "\n";
                     }
