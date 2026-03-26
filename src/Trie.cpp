@@ -67,7 +67,7 @@ bool Trie::search(const string& word) const{
 }
 
 void Trie::collectWords(TrieNode *node, string currentWord, vector<string> &results) const{
-    if (node == nullptr) { //checks if current node is null
+    if (node == nullptr || results.size() >= 5) { //checks if current node is null
         return;
     }
     if (node->isEndOfWord) { //checks if current node ends in complete word
@@ -77,6 +77,9 @@ void Trie::collectWords(TrieNode *node, string currentWord, vector<string> &resu
         if (node->children[i] != nullptr) { //checks if child node exists for letter
             char nextChar = 'a' + i; //converts child index back into char
             collectWords(node->children[i], currentWord + nextChar, results); //recursively explores child subtree
+            if (results.size() >= 5) {
+                return;
+            }
         }
     }
 }
@@ -98,4 +101,4 @@ vector<string> Trie::prefixSearch(const string& prefix) const {
     }
     collectWords(current, normalized, result); //collects all complete words below prefix
     return result; //returns all matching autocomplete suggestions
-    }
+}
