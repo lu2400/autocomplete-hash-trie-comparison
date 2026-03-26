@@ -29,7 +29,7 @@ Make sure you are in the project root directory, then run:
 
     data/
     
-      words.txt
+        words.txt
       
     include/
     
@@ -60,32 +60,26 @@ Make sure you are in the project root directory, then run:
 
 ## How to Use
 After running the program, you will see a menu:
+### Word Lookup System
 
-  Load dataset
-  
-  Insert words into structures
-  
-  Search for a word
-  
-  Search by prefix
-  
-  Compare performance
-  
-  Exit
-  
-### Typical Flow
-  1 → Load dataset
-  
-  2 → Insert words
-  
-  3 → Search words
-  
-  4 → Test autocomplete
+1. Load dataset
+   
+2. Insert words into structures
+   
+3. Search for a word
+   
+4. Search by prefix
+   
+5. Compare performance
+ 
+6. Run correctness tests
+ 
+7. Exit
 
 ## Dataset
 The dataset file is located in:
 
-    data/words.txt
+### data/words.txt
 
 Each line represents a single word.
 
