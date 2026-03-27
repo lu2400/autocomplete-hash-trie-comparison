@@ -9,6 +9,7 @@
 #include "../include/Testing.h"
 using namespace std;
 
+//prints out menu and structure of menu so users know what to do
 void printMenu() {
     cout << "\n--------------------------\n";
     cout << "   Word Lookup System\n";
@@ -25,16 +26,18 @@ void printMenu() {
 }
 
 int main() {
+    //creating structures of hashmap and trie to compare
     HashMap hashMap;
     Trie trie;
     vector<string> words;
+    //flags that keep track of what the user is doing
     bool datasetLoaded = false;
     bool wordsInserted = false;
 
     int choice;
-    do {
+    do {// keeps running until exit is selected
         printMenu();
-        if (!(cin >> choice)) {
+        if (!(cin >> choice)) {// make sure user inputs a valid number
             cin.clear();
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             cerr << "Invalid choice. Please enter 1-7.\n";
@@ -43,6 +46,7 @@ int main() {
         cin.ignore();
 
         switch (choice) {
+            //loads the dataset from the file into vector
             case 1: {
                 cout << "Loading dataset...\n";
                 words = loadDataset("data/words.txt");
@@ -55,12 +59,12 @@ int main() {
                     cout << "Failed to load dataset.\n";
                 }
                 break;
-            }
+            }//inserts all words to both trie and hashmap structures
             case 2: {
                 if (!datasetLoaded) {
                     cout << "Please load the dataset first (option 1).\n";
                     break;
-                }
+                }//loop through every word 
                 if (wordsInserted) {
                     cout << "Words have already been inserted into the structures. \n";
                     break;
@@ -74,7 +78,7 @@ int main() {
                 cout << "Done.\n";
 
                 break;
-            }
+            }// looks for full word in trie and hashmap structures
             case 3: {
                 if (!wordsInserted) {
                     cout << "Please load and insert words first (options 1 & 2).\n";
@@ -83,10 +87,11 @@ int main() {
                 string query;
                 cout << "Enter word to search: ";
                 getline(cin, query);
+                //checks if the word exists the each structure
                 cout << "Hash Map Result: " << (hashMap.search(query) ? "Found" : "Not Found") << "\n";
                 cout << "Trie Result: " << (trie.search(query) ? "Found" : "Not Found") << "\n";
                 break;
-            }
+            }//prefix search with trie structure
             case 4: {
                 if (!wordsInserted) {
                     cout << "Please load and insert words first (options 1 & 2).\n";
@@ -100,7 +105,7 @@ int main() {
                     cout << "No suggestions found.\n";
                 } else {
                     cout << "Suggestions:\n";
-                    int limit = 6;
+                    int limit = 6;//only shows first 6 suggestions
                     for (int i = 0; i < results.size() && i < limit; i++) {
                         cout << results[i] << "\n";
                     }
@@ -109,7 +114,7 @@ int main() {
                     }
                 }
                 break;
-            }
+            }//compare runtime performance of trie vs hashmap
             case 5: {
                 if (!datasetLoaded) {
                     cout << "Please load the dataset first (option 1).\n";
@@ -118,19 +123,20 @@ int main() {
                 cout << "Running benchmarks...\n";
                 BenchmarkResult hashResult = benchmarkHashMap(words);
                 BenchmarkResult trieResult = benchmarkTrie(words);
+                //prints results 
                 printResults(hashResult, trieResult, static_cast<int>(words.size()));
                 break;
-            }
+            }//runs all correctness tests on trie and hashmap
             case 6:
                 runAllTests();
                 break;
             case 7:
-                cout << "Goodbye!\n";
+                cout << "Goodbye!\n";//exits the program
                 break;
             default:
-                cout << "Invalid choice. Please enter 1-7.\n";
+                cout << "Invalid choice. Please enter 1-7.\n";//handles invalid menu choice
         }
-    } while (choice != 7);
+    } while (choice != 7);// the loop continues until the user selects option 7 to exit
 
     return 0;
 }
