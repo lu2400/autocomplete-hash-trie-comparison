@@ -102,7 +102,7 @@ TestResult runAllTests() {
         trie.insert("cat");
         vector<string> results = trie.prefixSearch("auto");
         check("Prefix search returns correct number of matches",
-              results.size() == 3, result);
+              (int)results.size() == 3, result);
     }
 
     // prefix search on a prefix that matches no words returns empty
@@ -121,7 +121,7 @@ TestResult runAllTests() {
         trie.insert("running");
         vector<string> results = trie.prefixSearch("run");
         check("Prefix search includes exact-match word in results",
-              results.size() == 3, result);
+              (int)results.size() == 3, result);
     }
 
     // single character word
