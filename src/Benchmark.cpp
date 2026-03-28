@@ -81,8 +81,8 @@ void printResults(const BenchmarkResult& hashResult, const BenchmarkResult& trie
     cout << "\n--- Performance Comparison (" << wordCount << " words) ---\n";
     cout << left
          << setw(18) << "Operation"
-         << setw(18) << "Hash Map (seconds)"
-         << setw(18) << "Trie (seconds)"
+         << setw(18) << "Hash Map(sec)"
+         << setw(18) << " Trie(sec)"
          << "Winner" << "\n";
     cout << string(72, '-') << "\n";
 

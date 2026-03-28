@@ -49,7 +49,7 @@ int main() {
             //loads the dataset from the file into vector
             case 1: {
                 cout << "Loading dataset...\n";
-                words = loadDataset("data/words.txt");
+                words = loadDataset("../data/words_alpha.txt");
                 if (!words.empty()) {
                     cout << "Loaded " << words.size() << " words.\n";
 
